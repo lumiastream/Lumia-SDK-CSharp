@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lumia", "lumia.csproj", "{578EF623-6E72-45C1-85D5-F0D6DB83BB6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lumia-sdk", "lumia-sdk.csproj", "{578EF623-6E72-45C1-85D5-F0D6DB83BB6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
