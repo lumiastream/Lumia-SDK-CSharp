@@ -24,7 +24,6 @@ Developers can use the Lumia Stream SDK to extend and control the Lumia Stream d
     - [Get Settings](#get-settings)
     - [Send Command](#send-command)
     - [Send Color](#send-color)
-    - [Send Color to specific lights](#send-color-to-specific-lights)
     - [Send Brightness](#send-brightness)
     - [Send TTS](#send-tts)
     - [Send Chat bot](#send-chat-bot)
@@ -76,90 +75,77 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using Lumia;
 
-namespace lumia
+namespace Examples
 {
-    class LumiaSdkExample1
-    {
-        private static string token = ""; // Game token that you have retrieved from https://lumiastream.com/games/submit
-        private static string name = ""; // Name of the game that will be prompted for the user to approve
+	class Program
+	{
+		private static string token = ""; // Game token that you have retrieved from https://lumiastream.com/games/submit
+		private static string name = ""; // Name of the game that will be prompted for the user to approve
 
-        public static async Task testSends(LumiaSdk lumia)
-        {
-            // Sending a command; with a callback to get the result for this call
-            await lumia.sendCommand("red", null, null);
+		public static async Task testSends(LumiaSdk lumia)
+		{
+			// Sending a command; with a callback to get the result for this call
+			await lumia.SendCommand("red", null, null);
 
-            RGB rgb = new RGB();
-            rgb.r = 255;
-            rgb.g = 0;
-            rgb.b = 255;
+			RGB rgb = new RGB();
+			rgb.r = 255;
+			rgb.g = 0;
+			rgb.b = 255;
 
-            await lumia.sendColor(rgb, 60, 1000);
+			await lumia.SendColor(rgb, 60, 1000);
 
-            // Sending a brightness
-            await lumia.sendBrightness(100);
+			// Sending a brightness
+			await lumia.SendBrightness(100);
 
-            // Sending a TTS message
-            await lumia.sendTts("This SDK is the best");
+			// Sending a TTS message
+			await lumia.SendTts("This SDK is the best");
 
-            // Sending a Chat bot message
-            await lumia.sendChatbot(Platforms.TWITCH, "This SDK is the best");
-        }
-        public static async Task run()
-        {
-            LumiaSdk lumia = new LumiaSdk();
-            await lumia.init(token, name);
+			// Sending a Chat bot message
+			await lumia.SendChatbot(Platforms.TWITCH, "This SDK is the best");
+		}
 
-            lumia.error += (string r) =>
-            {
-                Console.WriteLine("error : " + r);
-            };
+		public static async Task run()
+		{
+			LumiaSdk lumia = new LumiaSdk();
+			await lumia.init(token, name);
 
-            lumia.closed += (string r) =>
-            {
-                Console.WriteLine("closed : " + r);
-            };
+			lumia.error += (string r) =>
+			{};
+
+			lumia.closed += (string r) =>
+			{};
 
 
-            lumia.events += (JObject data) =>
-            {
-                Console.WriteLine("Event data : " + data.ToString());
+			lumia.events += (JObject data) =>
+			{
+							// here we give the context as we know it's an SDK Eent types
+							switch (LumiaUtils.getTypeValueFromString<LumiaSdkEventTypes>("LumiaSdkEventTypes", data["type"].Value<string>()))
+				{
+					case LumiaSdkEventTypes.STATES:
+						break;
 
-                // here we give the context as we know it's an SDK Eent types
-                switch (LumiaUtils.getTypeValueFromString<LumiaSdkEventTypes>("LumiaSdkEventTypes", data["type"].Value<string>()))
-                {
-                    case LumiaSdkEventTypes.STATES:
-                        Console.WriteLine("States have been updated:  " + data.ToString());
-                        break;
+					case LumiaSdkEventTypes.COMMAND:
+						break;
 
-                    case LumiaSdkEventTypes.COMMAND:
-                        Console.WriteLine("A Chat Command is being triggered:  " + data.ToString());
-                        break;
+					case LumiaSdkEventTypes.CHAT:
+						break;
 
-                    case LumiaSdkEventTypes.CHAT:
-                        Console.WriteLine("New chat message:  " + data.ToString());
-                        break;
+					case LumiaSdkEventTypes.ALERT:
+						break;
+				}
+			};
 
-                    case LumiaSdkEventTypes.ALERT:
-                        Console.WriteLine("New alert:  " + data.ToString());
-                        break;
-                }
-            };
-
-            var r = await lumia.getInfo();
-
-            Console.WriteLine("get info result : " + r.ToString());
-
-            await testSends(lumia);
-
-        }
-        static void Main(string[] args)
-        {
-            run().GetAwaiter().GetResult();
-        }
-    }
+			var r = await lumia.GetInfo();
+			await testSends(lumia);
+		}
+		public static void Main(string[] args)
+		{
+			run().GetAwaiter().GetResult();
+		}
+	}
 }
-
 ```
 
 # Events
@@ -295,7 +281,7 @@ These settings will include all of the lights that are connected to Lumia, the c
 **Example:**
 
 ```c#
-const info = await sdk.getInfo();
+const info = await sdk.GetInfo();
 ```
 
 ---
@@ -307,9 +293,7 @@ The simplest way to use Lumia is first setting up a command inside of Lumia Stre
 **Example:**
 
 ```c#
-await sdk.sendCommand({
- command: 'red',
-});
+await lumia.SendCommand("red", null, null);
 ```
 
 ---
@@ -321,28 +305,28 @@ Sending a color gives you the ability to set your lights to whatever color you c
 **Example:**
 
 ```c#
-await sdk.sendColor({
- color: { r: 255, g: 0, b: 255 },
- brightness: 60,
- duration: 1000,
-});
+RGB rgb = new RGB();
+rgb.r = 255;
+rgb.g = 0;
+rgb.b = 255;
+
+await lumia.SendColor(rgb, 60, 1000);
 ```
 
 ---
-
-### Send Color to specific lights
 
 Using the same sendColor method you can also choose which lights receive the color change
 
 **Example:**
 
 ```c#
-await sdk.sendColor({
- color: { r: 255, g: 0, b: 255 },
- brightness: 60,
- duration: 1000,
- lights: [{ type: 'hue', id: '10' }]
-});
+RGB rgb = new RGB();
+rgb.r = 255;
+rgb.g = 0;
+rgb.b = 255;
+List lights;
+
+await lumia.SendColor(rgb, 60, 1000, null, null, null, lights);
 ```
 
 ---
@@ -354,9 +338,7 @@ Sending brightness alone will keep all of your lights at their current state whi
 **Example:**
 
 ```c#
-await sdk.sendBrightness({
- brightness: 100,
-});
+await lumia.SendBrightness(100);
 ```
 
 ---
@@ -368,9 +350,7 @@ Sending TTS messages will give you the ability to use Lumia's TTS by just caling
 **Example:**
 
 ```c#
-await sdk.sendTts({
- text: 'This SDK is the best',
-});
+await lumia.SendTts("This SDK is the best");
 ```
 
 ---
@@ -382,10 +362,7 @@ Sending a Chat bot messages will allow you to send messages to chat through Lumi
 **Example:**
 
 ```c#
-await sdk.sendChatbot({
- platform: 'twitch',
- text: 'This SDK is the best',
-});
+await lumia.SendChatbot(Platforms.TWITCH, "This SDK is the best");
 ```
 
 ---
@@ -470,16 +447,16 @@ Send a mock alert
 **Example:**
 
 ```c#
-await sdk.sendAlert({ alert: LumiaSDKAlertValues.TWITCH_FOLLOWER });
+await sdk.SendAlert({ alert: LumiaSDKAlertValues.TWITCH_FOLLOWER });
 ```
 
 ---
 
 ## Resources
 
--   [Download the latest Lumia Stream SDK release](https://github.com/lumiastream/Lumia-SDK-CSharp/releases)
+-   [Download the latest Lumia Stream SDK release from nuget](https://www.nuget.org/packages/lumia-sdk/)
 -   [Read the full API reference](https://dev.lumiastream.com)
--   [Browse some examples](https://github.com/lumiastream/Lumia-SDK-CSharp/examples)
+-   [Browse some examples](https://github.com/lumiastream/Lumia-SDK-CSharp/tree/development/examples)
 
 ## Let's link
 
