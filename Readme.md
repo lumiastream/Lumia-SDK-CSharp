@@ -8,122 +8,159 @@ Developers can use the Lumia Stream SDK to extend and control the Lumia Stream d
 
 <!-- toc -->
 
--   [The official Lumia Stream SDK for C#](#the-official-lumia-stream-sdk-for-csharp)
-    -   [Table of Contents](#table-of-contents)
--   [Installation](#installation)
--   [Run the SDK](#run-the-sdk)
--   [Sample](#sample)
--   [Run a mock server](#run-a-mock-server)
--   [Events](#events)
-    -   [States](#states)
-    -   [Chat Command](#chat-command)
-    -   [Chat](#chat)
-    -   [Alert](#alert)
--   [Control](#control)
-    -   [Get Settings](#get-settings)
-    -   [Send Command](#send-command)
-    -   [Send Color](#send-color)
-    -   [Send Color to specific lights](#send-color-to-specific-lights)
-    -   [Send Brightness](#send-brightness)
-    -   [Send TTS](#send-tts)
-    -   [Send Chat bot](#send-chat-bot)
-    -   [Send Chat Command](#send-chat-command)
-    -   [Send Chat](#send-chat)
-    -   [Send Alert](#send-alert)
-    -   [Resources](#resources)
-    -   [Compiling from Terminal](#compiling-from-terminal)
-    -   [Let's link](#lets-link)
+- [The official Lumia Stream SDK for C](#the-official-lumia-stream-sdk-for-c)
+  - [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+    - [Self Build](#self-build)
+    - [NuGet Gallery](#nuget-gallery)
+- [Run the SDK](#run-the-sdk)
+- [Sample](#sample)
+- [Events](#events)
+    - [States](#states)
+    - [Chat Command](#chat-command)
+    - [Chat](#chat)
+    - [Alert](#alert)
+- [Control](#control)
+    - [Get Settings](#get-settings)
+    - [Send Command](#send-command)
+    - [Send Color](#send-color)
+    - [Send Color to specific lights](#send-color-to-specific-lights)
+    - [Send Brightness](#send-brightness)
+    - [Send TTS](#send-tts)
+    - [Send Chat bot](#send-chat-bot)
+    - [Send Chat Command](#send-chat-command)
+    - [Send Chat](#send-chat)
+    - [Send Alert](#send-alert)
+  - [Resources](#resources)
+  - [Let's link](#lets-link)
 
 <!-- tocstop -->
 
 # Installation
 
-`lumiastream's sdk` can easily be installed as a npm module:
+### Self Build ###
 
-```bash
-npm i @lumiastream/sdk
-```
+You should add your lumia-sdk.dll (e.g. `/path/to/lumia-sdk/bin/Debug/lumia-sdk.dll`) to the library references of your project.
+
+If you would like to use that dll in your [Unity] project, you should add it to any folder of your project (e.g. `Assets/Plugins`) in the **Unity Editor**.
+
+### NuGet Gallery ###
+
+lumia-sdk is available on the [NuGet Gallery], as a **prerelease** version.
+
+- [NuGet Gallery: lumia-sdk]
+
+You can add lumia-sdk to your project with the NuGet Package Manager, by using the following command in the Package Manager Console.
+
+    PM> Install-Package lumia-sdk -Pre
 
 # Run the SDK
 
 We've also included an example for using the SDK.
 
-To run the example head to [examples](https://github.com/lumiastream/Lumia-SDK-JS/examples) and you will see the `basic-example.js` file there.
+To run the example head to [examples](https://github.com/lumiastream/Lumia-SDK-CSharp/tree/main/examples) and you will see the `Progam.cs` file there.
 
-Make sure you replace your token with the token that you will find in Lumia Stream's settings.
+Make sure you replace your token with the token that you will find in Lumia Stream's settings. Or if you're making a game, you should use the Game Token that you can create from [here](https://lumiastream.com/games/submit)
 Here is how to [find your API token](https://dev.lumiastream.com/docs/get-a-token)
 
-After you have your token and replaced it inside of the `basic-example.js`, you can now run:
+After you have your token and replaced it inside of the `Progam.cs`, you can now run the Program:
 
-```bash
-npm install
-node basic-example.js
-```
-
-This will first initialize the sdk to create the connection. Then it will listen in on events that are coming through. You can also test out sending events by uncommenting the testSends function.
+This will first initialize the sdk to create the connection. Then it will listen in on events that are coming through.
 
 # Sample
 
 The following snippet shows a valid sdk example
 
-```js
-'use strict';
+```c#
+using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
-const { LumiaSdk, LumiaSDKCommandTypes, LumiaSDKAlertValues, LumiaSdkEventTypes } = require('@lumiastream/sdk');
+namespace lumia
+{
+    class LumiaSdkExample1
+    {
+        private static string token = ""; // Game token that you have retrieved from https://lumiastream.com/games/submit
+        private static string name = ""; // Name of the game that will be prompted for the user to approve
 
-const token = 'insert-token-here';
-const appName = 'lumia-test-sdk-js';
+        public static async Task testSends(LumiaSdk lumia)
+        {
+            // Sending a command; with a callback to get the result for this call
+            await lumia.sendCommand("red", null, null);
 
-(async () => {
-    sdk = new LumiaSdk();
+            RGB rgb = new RGB();
+            rgb.r = 255;
+            rgb.g = 0;
+            rgb.b = 255;
 
-    try {
-        await sdk.init({ appName, token });
+            await lumia.sendColor(rgb, 60, 1000);
 
-        sdk.on('event', (data) => {
-            console.log('Event data: ', data);
-            switch (data.type) {
-                case LumiaSdkEventTypes.CHAT_COMMANDS: {
-                    console.log('Chat Command is being triggered', data);
-                    break;
+            // Sending a brightness
+            await lumia.sendBrightness(100);
+
+            // Sending a TTS message
+            await lumia.sendTts("This SDK is the best");
+
+            // Sending a Chat bot message
+            await lumia.sendChatbot(Platforms.TWITCH, "This SDK is the best");
+        }
+        public static async Task run()
+        {
+            LumiaSdk lumia = new LumiaSdk();
+            await lumia.init(token, name);
+
+            lumia.error += (string r) =>
+            {
+                Console.WriteLine("error : " + r);
+            };
+
+            lumia.closed += (string r) =>
+            {
+                Console.WriteLine("closed : " + r);
+            };
+
+
+            lumia.events += (JObject data) =>
+            {
+                Console.WriteLine("Event data : " + data.ToString());
+
+                // here we give the context as we know it's an SDK Eent types
+                switch (LumiaUtils.getTypeValueFromString<LumiaSdkEventTypes>("LumiaSdkEventTypes", data["type"].Value<string>()))
+                {
+                    case LumiaSdkEventTypes.STATES:
+                        Console.WriteLine("States have been updated:  " + data.ToString());
+                        break;
+
+                    case LumiaSdkEventTypes.COMMAND:
+                        Console.WriteLine("A Chat Command is being triggered:  " + data.ToString());
+                        break;
+
+                    case LumiaSdkEventTypes.CHAT:
+                        Console.WriteLine("New chat message:  " + data.ToString());
+                        break;
+
+                    case LumiaSdkEventTypes.ALERT:
+                        Console.WriteLine("New alert:  " + data.ToString());
+                        break;
                 }
-                case LumiaSdkEventTypes.CHAT_TWITCH: {
-                    console.log('New chat message from twitch', data);
-                    break;
-                }
-            }
-        });
+            };
 
-        // Sending a command
-        await sdk.sendCommand({
-            command: 'red',
-        });
+            var r = await lumia.getInfo();
 
-        // Sending a basic color
-        await sdk.sendColor({
-            color: { r: 255, g: 0, b: 255 },
-            brightness: 60,
-            duration: 1000,
-        });
-    } catch (err) {
-        console.log('Init err: ', err);
+            Console.WriteLine("get info result : " + r.ToString());
+
+            await testSends(lumia);
+
+        }
+        static void Main(string[] args)
+        {
+            run().GetAwaiter().GetResult();
+        }
     }
-})();
+}
+
 ```
-
-# Run a mock server
-
-Included in the SDK is a mock server that you can run to test things out without needing Lumia Stream
-
-To run the server head to [examples](https://github.com/lumiastream/Lumia-SDK-JS/examples) and you will see the `test-server.js` file there.
-Now run:
-
-```bash
-npm install
-node test-server.js
-```
-
-This will send a few test events from the client as well as listen in on commands received from the client
 
 # Events
 
@@ -440,18 +477,9 @@ await sdk.sendAlert({ alert: LumiaSDKAlertValues.TWITCH_FOLLOWER });
 
 ## Resources
 
--   [Download the latest Lumia Stream SDK release](https://github.com/lumiastream/Lumia-SDK-JS/releases)
+-   [Download the latest Lumia Stream SDK release](https://github.com/lumiastream/Lumia-SDK-CSharp/releases)
 -   [Read the full API reference](https://dev.lumiastream.com)
--   [Run a mock server](https://github.com/lumiastream/Lumia-SDK-JS/examples)
--   [Browse some examples](https://github.com/lumiastream/Lumia-SDK-JS/examples)
-
-## Compiling from Terminal
-
-```bash
-cd example
-g++ -std=c#17 main.cpp -o test_sdk -I/path/to/Lumia-SDK-CPP/example/include
-./test_sdk
-```
+-   [Browse some examples](https://github.com/lumiastream/Lumia-SDK-CSharp/examples)
 
 ## Let's link
 
