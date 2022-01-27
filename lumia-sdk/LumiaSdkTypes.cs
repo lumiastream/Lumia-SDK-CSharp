@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 
-namespace lumia
+namespace Lumia
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    enum  LumiaSDKCommandTypes 
+    public enum  LumiaSDKCommandTypes 
     {
         [EnumMember(Value = "alert")]
         ALERT = 1,
@@ -42,7 +42,7 @@ namespace lumia
     };
 
     [JsonConverter(typeof(StringEnumConverter))]
-    enum LumiaSDKAlertValues
+    public enum LumiaSDKAlertValues
     {
         [EnumMember(Value = "twitch_follower")]
         TWITCH_FOLLOWER = 16,
@@ -109,7 +109,7 @@ namespace lumia
 
     };
     [JsonConverter(typeof(StringEnumConverter))]
-    enum  LumiaSdkEventTypes
+    public enum  LumiaSdkEventTypes
     {
         [EnumMember(Value = "states")]
         STATES = 47,
@@ -129,7 +129,7 @@ namespace lumia
         ALERT = 54,
     };
     [JsonConverter(typeof(StringEnumConverter))]
-    enum Platforms
+    public enum Platforms
     {
         [EnumMember(Value = "twitch")]
         TWITCH = 111,
@@ -143,7 +143,7 @@ namespace lumia
         GLIMESH = 115
     };
     [JsonConverter(typeof(StringEnumConverter))]
-    enum LightBrands
+    public enum LightBrands
     {
         [EnumMember(Value = "hue")]
         HUE = 116,
@@ -191,7 +191,7 @@ namespace lumia
     };
 
     [JsonConverter(typeof(StringEnumConverter))]
-    enum EventOrigins
+    public enum EventOrigins
     {
         [EnumMember(Value = "lumia")]
         LUMIA = 137,
@@ -234,26 +234,26 @@ namespace lumia
     };
 
 
-    class RGB
+    public class RGB
     {
         public int r;
         public int g;
         public int b;
     };
 
-    class ExtraSetting
+    public class ExtraSetting
     {
         public string username;
         public int bits;
     };
 
-    class ILumiaSdkEventData
+    public class ILumiaSdkEventData
     {
         public string username;
         public string command;
     };
 
-    class ILumiaSdkEvent
+    public class ILumiaSdkEvent
     {
         public EventOrigins origin;
 
@@ -262,7 +262,7 @@ namespace lumia
         public ILumiaSdkEventData data;
     };
 
-    class ILumiaSdkLight
+    public class ILumiaSdkLight
     {
        
         public LightBrands type;
@@ -271,7 +271,7 @@ namespace lumia
         public dynamic id;
     };
 
-    class LumiaSDKPackParams
+    public class LumiaSDKPackParams
     {
         
         public dynamic value;
@@ -307,7 +307,7 @@ namespace lumia
 
 
     
-    class ILumiaSdkSendPack
+    public class ILumiaSdkSendPack
     {
         public LumiaSDKCommandTypes type;
 
@@ -316,7 +316,7 @@ namespace lumia
     };
 
 
-    class LumiaUtils
+    public class LumiaUtils
     {
 
 

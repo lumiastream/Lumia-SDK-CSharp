@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-namespace lumia
+
+namespace Lumia
 {
     class LumiaLookup
     {
         public static Dictionary<int, string> types_values = new Dictionary<int, string>() {
-
             {1, "alert"},
             {2, "midi"},
             {3, "osc"},

@@ -4,12 +4,12 @@ using WebSocketSharp;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
-namespace lumia
+namespace Lumia
 {
     public delegate void NotifyInternal(string data);
     public delegate void Notify(JObject data);
 
-    class LumiaSdk
+    public class LumiaSdk
     {
         private WebSocket ws;
 
@@ -26,11 +26,11 @@ namespace lumia
             if (name != null) name_ = name;
             if (host != null) host_ = host;
 
-            return startWs();
+            return StartWs();
 
         }
 
-        private Task<bool> startWs()
+        private Task<bool> StartWs()
         {
             var promise = new TaskCompletionSource<bool>();
             var host = host_ + "/api?token=" + token_ + "&name=" + name_;
@@ -86,13 +86,13 @@ namespace lumia
                 closed?.Invoke(e.Reason);
                 if (e.Code == 1006)
                 {
-                    Task.Delay(2000).ContinueWith(async (t) => startWs());
+                    Task.Delay(2000).ContinueWith(async (t) => StartWs());
                 } else if  (e.Code == 1002 || e.Reason == "Invalid HTTP status.")
                 {
                     stoped = true;
                 }else
                 {
-                    startWs();
+                    StartWs();
                 }
             };
 
@@ -100,7 +100,7 @@ namespace lumia
             return promise.Task;
         }
 
-        private Task<JObject> sendWsMessage(JObject o)
+        private Task<JObject> SendWsMessage(JObject o)
         {
             var promise = new TaskCompletionSource<JObject>();
             cbs[(++event_count).ToString()] = promise;
@@ -109,34 +109,34 @@ namespace lumia
             return promise.Task;
         }
 
-        public Task<JObject> getInfo()
+        public Task<JObject> GetInfo()
 	    {
             JObject o = new JObject();
             o["method"] = "retrieve";
 		    o["retrieve"] = true;
-		    return sendWsMessage(o);
+		    return SendWsMessage(o);
         }
 
-        public Task<JObject> send(ILumiaSdkSendPack pack)
+        public Task<JObject> Send(ILumiaSdkSendPack pack)
         {
 
             JObject o = JObject.FromObject(pack);
             o["lsorigin"] = "lumia-sdk";
-            return sendWsMessage(o);
+            return SendWsMessage(o);
         }
         
-        public Task<JObject> sendAlert(LumiaSDKAlertValues alert)
+        public Task<JObject> SendAlert(LumiaSDKAlertValues alert)
         {
 
             ILumiaSdkSendPack pack = new ILumiaSdkSendPack();
             pack.type = LumiaSDKCommandTypes.ALERT;
             pack.params_ = new LumiaSDKPackParams();
             pack.params_.value = LumiaUtils.getTypeValue<LumiaSDKAlertValues>(alert);
-            return send(pack);
+            return Send(pack);
         }
 
         // Sends command
-        public Task<JObject> sendCommand(string command, bool? default_ = null, bool? skipQueue = null)
+        public Task<JObject> SendCommand(string command, bool? default_ = null, bool? skipQueue = null)
         {
 
             ILumiaSdkSendPack pack = new ILumiaSdkSendPack();
@@ -145,11 +145,11 @@ namespace lumia
             pack.params_.value = command;
             pack.params_.hold = default_;
             pack.params_.skipQueue = skipQueue;
-            return send(pack);
+            return Send(pack);
         }
 
         // Sends a color pack
-        public Task<JObject> sendColor(
+        public Task<JObject> SendColor(
 			    RGB color,
 			    int? brightness = null, // 0-100
                 int? duration = null,	 // In milliseconds
@@ -172,11 +172,11 @@ namespace lumia
             pack.params_.hold = default_;
             pack.params_.skipQueue = skipQueue;
             pack.params_.lights = lights;
-            return send(pack);
+            return Send(pack);
         }
 
         // Sends brightness only
-        public Task<JObject> sendBrightness(int brightness, int? transition = null, bool? skipQueue = null)
+        public Task<JObject> SendBrightness(int brightness, int? transition = null, bool? skipQueue = null)
         {
 
             ILumiaSdkSendPack pack = new ILumiaSdkSendPack();
@@ -185,11 +185,11 @@ namespace lumia
             pack.params_.brightness = brightness;
             pack.params_.transition = transition;
             pack.params_.skipQueue = skipQueue;
-            return send(pack);
+            return Send(pack);
         }
 
         // Sends tts
-        public Task<JObject> sendTts(string text, int? volume = null, string? voice = null)
+        public Task<JObject> SendTts(string text, int? volume = null, string? voice = null)
         {
             ILumiaSdkSendPack pack = new ILumiaSdkSendPack();
             pack.type = LumiaSDKCommandTypes.TTS;
@@ -197,27 +197,27 @@ namespace lumia
             pack.params_.value = text;
             pack.params_.volume = volume;
             pack.params_.voice = voice;
-            return send(pack);
+            return Send(pack);
         }
 
         // Sends Chatbot message
-        public Task<JObject> sendChatbot(Platforms platform, string text)
+        public Task<JObject> SendChatbot(Platforms platform, string text)
         {
             ILumiaSdkSendPack pack = new ILumiaSdkSendPack();
             pack.type = LumiaSDKCommandTypes.CHATBOT_MESSAGE;
             pack.params_ = new LumiaSDKPackParams();
             pack.params_.value = text;
             pack.params_.platform = platform;
-            return send(pack);
+            return Send(pack);
         }
 
 
-        public Task<JObject> stop()
+        public Task<JObject> Stop()
         {
 
             JObject o = new JObject();
-            o["method"] = "stop";
-            var r = sendWsMessage(o).GetAwaiter().GetResult();
+            o["method"] = "Stop";
+            var r = SendWsMessage(o).GetAwaiter().GetResult();
             stoped = true;
             isConnected = false;
             ws.Close();

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lumia-sdk", "lumia-sdk.csproj", "{578EF623-6E72-45C1-85D5-F0D6DB83BB6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples", "Examples\Examples.csproj", "{113149E0-20A1-4A97-9138-6603B1CACEFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{9D9B338B-C87A-43AA-BBAF-ABE68B75BAE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lumia-sdk", "lumia-sdk\lumia-sdk.csproj", "{9DB375AE-BE39-4B45-9C16-0F3E6BCCB2FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{578EF623-6E72-45C1-85D5-F0D6DB83BB6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{578EF623-6E72-45C1-85D5-F0D6DB83BB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{578EF623-6E72-45C1-85D5-F0D6DB83BB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{578EF623-6E72-45C1-85D5-F0D6DB83BB6A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D9B338B-C87A-43AA-BBAF-ABE68B75BAE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9B338B-C87A-43AA-BBAF-ABE68B75BAE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D9B338B-C87A-43AA-BBAF-ABE68B75BAE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D9B338B-C87A-43AA-BBAF-ABE68B75BAE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113149E0-20A1-4A97-9138-6603B1CACEFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113149E0-20A1-4A97-9138-6603B1CACEFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{113149E0-20A1-4A97-9138-6603B1CACEFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{113149E0-20A1-4A97-9138-6603B1CACEFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DB375AE-BE39-4B45-9C16-0F3E6BCCB2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB375AE-BE39-4B45-9C16-0F3E6BCCB2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB375AE-BE39-4B45-9C16-0F3E6BCCB2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB375AE-BE39-4B45-9C16-0F3E6BCCB2FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

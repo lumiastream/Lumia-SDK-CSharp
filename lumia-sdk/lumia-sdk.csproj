@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -15,6 +15,8 @@
     <PackageIcon>Lumia-Stream_Logo_Circle_Purple.png</PackageIcon>
     <PackageIconUrl />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\OneDrive - Lumia Stream\Lumia-Assets\Branding-Package\Company Logos\Main\Lumia-Stream_Logo_Circle_Purple.png">
+    <None Include="..\Lumia-Stream_Logo_Circle_Purple.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
