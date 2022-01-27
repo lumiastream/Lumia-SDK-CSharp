@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 namespace lumia
 {
-
     class LumiaLookup
     {
         public static Dictionary<int, string> types_values = new Dictionary<int, string>() {
@@ -232,7 +230,6 @@ namespace lumia
             {"slobs", 153},
             {"pulsoid", 154},
             {"paypal", 155}
-
         };
     }
 }

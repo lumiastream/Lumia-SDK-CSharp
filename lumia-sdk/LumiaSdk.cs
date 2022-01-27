@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using WebSocketSharp;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace lumia
 {
