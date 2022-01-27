@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Developers can use the Lumia Stream SDK to extend and control the Lumia Stream desktop app, enabling them to control smart lights, MIDI, DMX, OSC, OBS, TTS and so much more to create a custom and unique lighting experience.</Description>
+    <Company>Lumia Stream</Company>
+    <Product>Lumia Stream</Product>
+    <Authors>Lumia Stream</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>2022 Lumia Stream</Copyright>
+    <PackageProjectUrl>https://github.com/lumiastream/Lumia-SDK-CSharp</PackageProjectUrl>
+    <PackageIcon>Lumia-Stream_Logo_Circle_Purple.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/lumiastream/Lumia-SDK-CSharp</RepositoryUrl>
+    <PackageTags>Lumia Stream</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>lumiastream-snk.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="WebSocketSharp.Standard" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Lumia-Stream_Logo_Circle_Purple.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
