@@ -30,13 +30,15 @@ namespace Examples
 			{
 				Console.WriteLine("Event data : " + data.ToString());
 
-
 				// here we give the context as we know it's an SDK Eent types
 				switch (LumiaUtils.getTypeValueFromString<LumiaSdkEventTypes>("LumiaSdkEventTypes", data["type"].Value<string>()))
 				{
 					case LumiaSdkEventTypes.STATES:
-						Console.WriteLine("States have been updated:  " + data.ToString());
-						break;
+						{
+							Console.WriteLine("States have been updated:  " + data.ToString());
+							TestCall();
+							break;
+						}
 
 					case LumiaSdkEventTypes.COMMAND:
 						Console.WriteLine("A Chat Command is being triggered:  " + data.ToString());
@@ -51,6 +53,10 @@ namespace Examples
 						break;
 				}
 			};
+		}
+		public static void TestCall(string[] args)
+		{
+			Console.WriteLine("Calling from event");
 		}
 		public static void Main(string[] args)
 		{
