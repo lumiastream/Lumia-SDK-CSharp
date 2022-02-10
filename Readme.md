@@ -8,46 +8,46 @@ Developers can use the Lumia Stream SDK to extend and control the Lumia Stream d
 
 <!-- toc -->
 
-- [The official Lumia Stream SDK for C](#the-official-lumia-stream-sdk-for-c)
-  - [Table of Contents](#table-of-contents)
-- [Installation](#installation)
-    - [Self Build](#self-build)
-    - [NuGet Gallery](#nuget-gallery)
-- [Run the SDK](#run-the-sdk)
-- [Sample](#sample)
-- [Events](#events)
-    - [States](#states)
-    - [Chat Command](#chat-command)
-    - [Chat](#chat)
-    - [Alert](#alert)
-- [Control](#control)
-    - [Get Settings](#get-settings)
-    - [Send Command](#send-command)
-    - [Send Color](#send-color)
-    - [Send Brightness](#send-brightness)
-    - [Send TTS](#send-tts)
-    - [Send Chat bot](#send-chat-bot)
-    - [Send Chat Command](#send-chat-command)
-    - [Send Chat](#send-chat)
-    - [Send Alert](#send-alert)
-  - [Resources](#resources)
-  - [Let's link](#lets-link)
+-   [The official Lumia Stream SDK for C](#the-official-lumia-stream-sdk-for-c)
+    -   [Table of Contents](#table-of-contents)
+-   [Installation](#installation)
+    -   [Self Build](#self-build)
+    -   [NuGet Gallery](#nuget-gallery)
+-   [Run the SDK](#run-the-sdk)
+-   [Sample](#sample)
+-   [Events](#events)
+    -   [States](#states)
+    -   [Chat Command](#chat-command)
+    -   [Chat](#chat)
+    -   [Alert](#alert)
+-   [Control](#control)
+    -   [Get Settings](#get-settings)
+    -   [Send Command](#send-command)
+    -   [Send Color](#send-color)
+    -   [Send Brightness](#send-brightness)
+    -   [Send TTS](#send-tts)
+    -   [Send Chat bot](#send-chat-bot)
+    -   [Send Chat Command](#send-chat-command)
+    -   [Send Chat](#send-chat)
+    -   [Send Alert](#send-alert)
+    -   [Resources](#resources)
+    -   [Let's link](#lets-link)
 
 <!-- tocstop -->
 
 # Installation
 
-### Self Build ###
+### Self Build
 
 You should add your lumia-sdk.dll (e.g. `/path/to/lumia-sdk/bin/Debug/lumia-sdk.dll`) to the library references of your project.
 
 If you would like to use that dll in your [Unity] project, you should add it to any folder of your project (e.g. `Assets/Plugins`) in the **Unity Editor**.
 
-### NuGet Gallery ###
+### NuGet Gallery
 
 lumia-sdk is available on the [NuGet Gallery], as a **prerelease** version.
 
-- [NuGet Gallery: lumia-sdk]
+-   [NuGet Gallery: lumia-sdk]
 
 You can add lumia-sdk to your project with the NuGet Package Manager, by using the following command in the Package Manager Console.
 
@@ -121,18 +121,18 @@ namespace Examples
 			lumia.events += (JObject data) =>
 			{
 							// here we give the context as we know it's an SDK Eent types
-							switch (LumiaUtils.getTypeValueFromString<LumiaSdkEventTypes>("LumiaSdkEventTypes", data["type"].Value<string>()))
+							switch (LumiaUtils.getTypeValueFromString<LumiaEventTypes>("LumiaEventTypes", data["type"].Value<string>()))
 				{
-					case LumiaSdkEventTypes.STATES:
+					case LumiaEventTypes.STATES:
 						break;
 
-					case LumiaSdkEventTypes.COMMAND:
+					case LumiaEventTypes.COMMAND:
 						break;
 
-					case LumiaSdkEventTypes.CHAT:
+					case LumiaEventTypes.CHAT:
 						break;
 
-					case LumiaSdkEventTypes.ALERT:
+					case LumiaEventTypes.ALERT:
 						break;
 				}
 			};
@@ -156,9 +156,9 @@ These events range from the app state being changed, raw chat messages, chat com
 
 An event message will contain at least the following base fields:
 
--   `type` _LumiaSdkEventTypes_: the type of event.
+-   `type` _LumiaEventTypes_: the type of event.
 -   `origin` _EventOrigins (optional)_: where the event originated from. i.e: twitch for example
--   `data` _ILumiaSdkEventStateBody | ILumiaSdkEventChatCommandBody | ILumiaSdkEventChatBody | ILumiaSdkEventAlertBody | ILumiaSdkEventStateBody (optional)_: the body of the event
+-   `data` _ILumiaEventStateBody | ILumiaEventChatCommandBody | ILumiaEventChatBody | ILumiaEventAlertBody | ILumiaEventStateBody (optional)_: the body of the event
 
 Additional fields may be present in the event message depending on the event type.
 
@@ -447,7 +447,7 @@ Send a mock alert
 **Example:**
 
 ```c#
-await sdk.SendAlert({ alert: LumiaSDKAlertValues.TWITCH_FOLLOWER });
+await sdk.SendAlert({ alert: LumiaAlertValues.TWITCH_FOLLOWER });
 ```
 
 ---

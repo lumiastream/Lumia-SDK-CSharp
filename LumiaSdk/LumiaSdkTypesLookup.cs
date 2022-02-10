@@ -20,7 +20,10 @@ namespace Lumia
             {13, "studio-theme"},
             {14, "chatbot-message"},
             {15, "tts"},
-            {1000, "game"},
+            {201, "gamesglow-alert"},
+            {202, "gamesglow-command"},
+            {203, "gamesglow-variable"},
+            {204, "gamesglow-virtuallight"},
 
             {16, "twitch-follower"},
             {17, "twitch-subscriber"},
@@ -59,10 +62,12 @@ namespace Lumia
             {49, "command"},
             {50, "twitch_point"},
             {51, "twitch_extension"},
-            {52, "pulse"},
-            {53, "trovo_spell"},
+            {52, "trovo_spell"},
+            {53, "pulse"},
             {54, "alert"},
-            {1001, "game_command"},
+            {55, "gamesglow_alert"},
+            {56, "gamesglow_command"},
+            {57, "gamesglow_virtuallight"},
 
             {111, "twitch"},
             {112, "youtube"},
@@ -115,7 +120,7 @@ namespace Lumia
         };
 
 
-        public static IDictionary<string, int> types_values_str_LumiaSDKCommandTypes = new Dictionary<string, int>() {
+        public static IDictionary<string, int> types_values_str_LumiaCommandTypes = new Dictionary<string, int>() {
             {"alert", 1},
             {"midi", 2},
             {"osc", 3},
@@ -131,10 +136,13 @@ namespace Lumia
             {"studio-theme", 13},
             {"chatbot-message", 14},
             {"tts", 15},
-            {"game", 1000},
+            {"gamesglow-alert", 201},
+            {"gamesglow-command", 202},
+            {"gamesglow-variable", 203},
+            {"gamesglow-virtuallight", 204},
         };
 
-        public static IDictionary<string, int> types_values_str_LumiaSDKAlertValues = new Dictionary<string, int>() {
+        public static IDictionary<string, int> types_values_str_LumiaAlertValues = new Dictionary<string, int>() {
             {"twitch-follower", 16},
             {"twitch-subscriber", 17},
             {"twitch-bits", 18},
@@ -168,7 +176,7 @@ namespace Lumia
             {"pulse-calories", 46},
         };
 
-        public static IDictionary<string, int> types_values_str_LumiaSdkEventTypes = new Dictionary<string, int>() {
+        public static IDictionary<string, int> types_values_str_LumiaEventTypes = new Dictionary<string, int>() {
             {"states", 47},
             {"chat", 48},
             {"command", 49},
@@ -177,7 +185,9 @@ namespace Lumia
             {"pulse", 52},
             {"trovo_spell", 53},
             {"alert", 54},
-            {"game_command", 10001}
+            {"gamesglow_alert", 55},
+            {"gamesglow_command", 56},
+            {"gamesglow_virtuallight", 57},
         };
 
         public static IDictionary<string, int> types_values_str_Platforms = new Dictionary<string, int>() {

@@ -7,7 +7,7 @@ using System;
 namespace Lumia
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum LumiaSDKCommandTypes
+    public enum LumiaCommandTypes
     {
         [EnumMember(Value = "alert")]
         ALERT = 1,
@@ -17,34 +17,40 @@ namespace Lumia
         OSC = 3,
         [EnumMember(Value = "artnet")]
         ARTNET = 4,
-        [EnumMember(Value = "rgb_color")]
+        [EnumMember(Value = "rgb-color")]
         RGB_COLOR = 5,
-        [EnumMember(Value = "hex_color")]
+        [EnumMember(Value = "hex-color")]
         HEX_COLOR = 6,
-        [EnumMember(Value = "chat_command")]
+        [EnumMember(Value = "chat-command")]
         CHAT_COMMAND = 7,
-        [EnumMember(Value = "twitch_points")]
+        [EnumMember(Value = "twitch-points")]
         TWITCH_POINTS = 8,
-        [EnumMember(Value = "twitch_extension")]
+        [EnumMember(Value = "twitch-extension")]
         TWITCH_EXTENSION = 9,
-        [EnumMember(Value = "trovo_spells")]
+        [EnumMember(Value = "trovo-spells")]
         TROVO_SPELLS = 10,
-        [EnumMember(Value = "studio_scene")]
+        [EnumMember(Value = "studio-scene")]
         STUDIO_SCENE = 11,
-        [EnumMember(Value = "studio_animation")]
+        [EnumMember(Value = "studio-animation")]
         STUDIO_ANIMATION = 12,
-        [EnumMember(Value = "studio_theme")]
+        [EnumMember(Value = "studio-theme")]
         STUDIO_THEME = 13,
-        [EnumMember(Value = "chatbot_message")]
+        [EnumMember(Value = "chatbot-message")]
         CHATBOT_MESSAGE = 14,
         [EnumMember(Value = "tts")]
         TTS = 15,
-        [EnumMember(Value = "game")]
-        GAME = 1000
+        [EnumMember(Value = "gamesglow-alert")]
+        GAMESGLOW_ALERT = 201,
+        [EnumMember(Value = "gamesglow-command")]
+        GAMESGLOW_COMMAND = 202,
+        [EnumMember(Value = "gamesglow-variable")]
+        GAMESGLOW_VARIABLE = 203
+        [EnumMember(Value = "gamesglow-virtuallight")]
+        GAMESGLOW_VIRTUALLIGHT = 204
     };
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum LumiaSDKAlertValues
+    public enum LumiaAlertValues
     {
         [EnumMember(Value = "twitch_follower")]
         TWITCH_FOLLOWER = 16,
@@ -111,7 +117,7 @@ namespace Lumia
 
     };
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum LumiaSdkEventTypes
+    public enum LumiaEventTypes
     {
         [EnumMember(Value = "states")]
         STATES = 47,
@@ -129,8 +135,12 @@ namespace Lumia
         PULSE = 53,
         [EnumMember(Value = "alert")]
         ALERT = 54,
-        [EnumMember(Value = "game_command")]
-        GAME_COMMAND = 1001,
+        [EnumMember(Value = "gamesglow_alert")]
+        GAMESGLOW_ALERT = 55,
+        [EnumMember(Value = "gamesglow_command")]
+        GAMESGLOW_COMMAND = 56,
+        [EnumMember(Value = "gamesglow_virtuallight")]
+        GAMESGLOW_VIRTUALLIGHT = 57
     };
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Platforms
@@ -251,22 +261,22 @@ namespace Lumia
         public int bits;
     };
 
-    public class ILumiaSdkEventData
+    public class ILumiaEventData
     {
         public string username;
         public string command;
     };
 
-    public class ILumiaSdkEvent
+    public class ILumiaEvent
     {
         public EventOrigins origin;
 
-        public LumiaSdkEventTypes type;
+        public LumiaEventTypes type;
 
-        public ILumiaSdkEventData data;
+        public ILumiaEventData data;
     };
 
-    public class ILumiaSdkLight
+    public class ILumiaLight
     {
 
         public LightBrands type;
@@ -275,7 +285,7 @@ namespace Lumia
         public dynamic id;
     };
 
-    public class LumiaSDKPackParams
+    public class LumiaPackParams
     {
 
         public dynamic value;
@@ -284,7 +294,7 @@ namespace Lumia
         public string event_name;
 
         [JsonProperty("lights", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ILumiaSdkLight> lights;
+        public List<ILumiaLight> lights;
 
         [JsonProperty("hold", NullValueHandling = NullValueHandling.Ignore)]
         public bool? hold;      // Sets this command to default or not
@@ -312,19 +322,19 @@ namespace Lumia
         public ExtraSetting extraSettings; // Mainly used to pass in variables for things like TTS or Chat bot
     };
 
-    public class ILumiaSdkSendPack
+    public class ILumiaSendPack
     {
         public dynamic type;
+        public string glowId;
+        public string glowId;
 
         [JsonProperty("params")]
-        public LumiaSDKPackParams params_;
+        public LumiaPackParams params_;
     };
 
 
     public class LumiaUtils
     {
-
-
         public static string getTypeValue<T>(T value)
         {
             return LumiaLookup.types_values[(int)(object)value];
@@ -332,17 +342,17 @@ namespace Lumia
 
         public static T getTypeValueFromString<T>(string value_type, string value)
         {
-            if (value_type == "LumiaSDKCommandTypes")
+            if (value_type == "LumiaCommandTypes")
             {
-                return (T)(object)LumiaLookup.types_values_str_LumiaSDKCommandTypes[value];
+                return (T)(object)LumiaLookup.types_values_str_LumiaCommandTypes[value];
             }
-            else if (value_type == "LumiaSDKAlertValues")
+            else if (value_type == "LumiaAlertValues")
             {
-                return (T)(object)LumiaLookup.types_values_str_LumiaSDKAlertValues[value];
+                return (T)(object)LumiaLookup.types_values_str_LumiaAlertValues[value];
             }
-            else if (value_type == "LumiaSdkEventTypes")
+            else if (value_type == "LumiaEventTypes")
             {
-                return (T)(object)LumiaLookup.types_values_str_LumiaSdkEventTypes[value];
+                return (T)(object)LumiaLookup.types_values_str_LumiaEventTypes[value];
             }
             else if (value_type == "Platforms")
             {
