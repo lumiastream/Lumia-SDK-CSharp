@@ -44,7 +44,7 @@ namespace Lumia
         [EnumMember(Value = "gamesglow-command")]
         GAMESGLOW_COMMAND = 202,
         [EnumMember(Value = "gamesglow-variable")]
-        GAMESGLOW_VARIABLE = 203
+        GAMESGLOW_VARIABLE = 203,
         [EnumMember(Value = "gamesglow-virtuallight")]
         GAMESGLOW_VIRTUALLIGHT = 204
     };
@@ -325,8 +325,7 @@ namespace Lumia
     public class ILumiaSendPack
     {
         public dynamic type;
-        public string glowId;
-        public string glowId;
+        public string gamesGlowId;
 
         [JsonProperty("params")]
         public LumiaPackParams params_;

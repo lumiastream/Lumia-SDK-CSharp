@@ -18,7 +18,7 @@ namespace Lumia
             if (token != null) token_ = token;
             if (name != null) name_ = name;
             if (host != null) host_ = host;
-            if (port != null) port_ = port;
+            port_ = port;
         }
 
         public Task<bool> init(string token = null, string name = null, string host = null, int port = 39231, int timeout = 30000)
@@ -26,7 +26,7 @@ namespace Lumia
             if (token != null) token_ = token;
             if (name != null) name_ = name;
             if (host != null) host_ = host;
-            if (port != null) port_ = port;
+            port_ = port;
 
             return StartWs();
         }
@@ -284,7 +284,8 @@ namespace Lumia
 
 
         private string token_, name_;
-        private string host_ = "ws://127.0.0.1:39231";
+        private string host_ = "127.0.0.1";
+        private int port_ = 39231;
         private int event_count = 0;
         private IDictionary<string, TaskCompletionSource<JObject>> cbs = new Dictionary<string, TaskCompletionSource<JObject>>();
 
