@@ -326,6 +326,7 @@ namespace Lumia
     {
         public dynamic type;
         public string gamesGlowId;
+        public string gamesGlowKey;
 
         [JsonProperty("params")]
         public LumiaPackParams params_;
