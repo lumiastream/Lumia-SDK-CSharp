@@ -219,48 +219,48 @@ namespace Lumia
         {
             JObject o = new JObject();
             o["method"] = "gamesGlowSettings";
-            o["gamesGlowName"] = name_;
+            o["gamesGlowKey"] = name_;
             return SendWsMessage(o);
         }
 
-        public Task<JObject> SendGamesGlowAlert(string glowId, object value = null)
+        public Task<JObject> SendGamesGlowAlert(string gamesGlowId, object value = null)
         {
 
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.GAMESGLOW_ALERT);
-            pack.glowId = glowId;
+            pack.gamesGlowId = gamesGlowId;
             pack.params_ = new LumiaPackParams();
             pack.params_.value = value;
             return Send(pack);
         }
 
-        public Task<JObject> SendGamesGlowCommand(string glowId, object value = null)
+        public Task<JObject> SendGamesGlowCommand(string gamesGlowId, object value = null)
         {
 
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.GAMESGLOW_COMMAND);
-            pack.glowId = glowId;
+            pack.gamesGlowId = gamesGlowId;
             pack.params_ = new LumiaPackParams();
             pack.params_.value = value;
             return Send(pack);
         }
 
-        public Task<JObject> SendGamesGlowVariableUpdate(string glowId, object value = null)
+        public Task<JObject> SendGamesGlowVariableUpdate(string gamesGlowId, object value = null)
         {
 
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.GAMESGLOW_VARIABLE);
-            pack.glowId = glowId;
+            pack.gamesGlowId = gamesGlowId;
             pack.params_ = new LumiaPackParams();
             pack.params_.value = value;
             return Send(pack);
         }
 
-        public Task<JObject> SendGamesGlowVirtualLightsChange(string glowId, object value = null)
+        public Task<JObject> SendGamesGlowVirtualLightsChange(string gamesGlowId, object value = null)
         {
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.GAMESGLOW_VIRTUALLIGHT);
-            pack.glowId = glowId;
+            pack.gamesGlowId = gamesGlowId;
             pack.params_ = new LumiaPackParams();
             pack.params_.value = value;
             return Send(pack);
