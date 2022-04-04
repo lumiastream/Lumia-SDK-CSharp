@@ -39,19 +39,19 @@ Developers can use the Lumia Stream SDK to extend and control the Lumia Stream d
 
 ### Self Build
 
-You should add your lumia-sdk.dll (e.g. `/path/to/lumia-sdk/bin/Debug/lumia-sdk.dll`) to the library references of your project.
+You should add your LumiaSdk.dll (e.g. `/path/to/LumiaSdk/bin/Debug/netcoreapp3.1/LumiaSdk.dll`) to the library references of your project.
 
 If you would like to use that dll in your [Unity] project, you should add it to any folder of your project (e.g. `Assets/Plugins`) in the **Unity Editor**.
 
 ### NuGet Gallery
 
-lumia-sdk is available on the [NuGet Gallery], as a **prerelease** version.
+LumiaSdk is available on the [NuGet Gallery], as a **prerelease** version.
 
--   [NuGet Gallery: lumia-sdk]
+-   [NuGet Gallery: LumiaSdk]
 
-You can add lumia-sdk to your project with the NuGet Package Manager, by using the following command in the Package Manager Console.
+You can add LumiaSdk to your project with the NuGet Package Manager, by using the following command in the Package Manager Console.
 
-    PM> Install-Package lumia-sdk -Pre
+    PM> Install-Package LumiaSdk -Pre
 
 # Run the SDK
 
@@ -454,7 +454,7 @@ await sdk.SendAlert({ alert: LumiaAlertValues.TWITCH_FOLLOWER });
 
 ## Resources
 
--   [Download the latest Lumia Stream SDK release from nuget](https://www.nuget.org/packages/lumia-sdk/)
+-   [Download the latest Lumia Stream SDK release from nuget](https://www.nuget.org/packages/LumiaSdk/)
 -   [Read the full API reference](https://dev.lumiastream.com)
 -   [Browse some examples](https://github.com/lumiastream/Lumia-SDK-CSharp/tree/development/examples)
 
