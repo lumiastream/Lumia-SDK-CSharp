@@ -96,6 +96,7 @@ namespace Lumia
             {134, "steelseries"},
             {135, "overlay"},
             {136, "elgato"},
+            {160, "virtuallights"},
 
             {137, "lumia"},
             {138, "twitch"},
@@ -116,7 +117,6 @@ namespace Lumia
             {153, "slobs"},
             {154, "pulsoid"},
             {155, "paypal"}
-
         };
 
 
@@ -221,6 +221,7 @@ namespace Lumia
             {"steelseries", 134},
             {"overlay", 135},
             {"elgato", 136},
+            {"virtuallights", 160},
         };
         public static IDictionary<string, int> types_values_str_EventOrigins = new Dictionary<string, int>() {
 

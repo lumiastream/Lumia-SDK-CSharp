@@ -153,6 +153,31 @@ namespace Lumia
             return Send(pack);
         }
 
+        // Sends a hex color
+        public Task<JObject> SendHexColor(
+                        string color,
+                        int brightness, // 0-100
+                        int duration,  // In milliseconds
+                        int transition, // In milliseconds
+                        bool default_,
+                        bool skipQueue,
+                        List<ILumiaLight> lights)
+        {
+
+
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.HEX_COLOR);
+            pack.params_ = new LumiaPackParams();
+            pack.params_.value = color;
+            pack.params_.brightness = brightness;
+            pack.params_.duration = duration;
+            pack.params_.transition = transition;
+            pack.params_.hold = default_;
+            pack.params_.skipQueue = skipQueue;
+            pack.params_.lights = lights;
+            return Send(pack);
+        }
+
         // Sends a color pack
         public Task<JObject> SendColor(
                         RGB color,

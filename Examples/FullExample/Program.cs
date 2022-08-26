@@ -7,39 +7,43 @@ namespace Examples
 {
     class Program
     {
-        private static string token = ""; // Game token that you have retrieved from https://lumiastream.com/games/submit
-        private static string name = ""; // Name of the game that will be prompted for the user to approve
+        private static string token = ""; // API token from Lumia Stream Settings > API > Copy Token, or your Game token that you have received from https://lumiastream.com/games/submit
+        private static string name = ""; // Name of your app or game that will be prompted for the user to approve
 
         public static async Task testSends(LumiaSdk lumia)
         {
+            // Uncomment the examples you would like to test
+            
             // Sending an alert event example
-            await lumia.SendAlert(LumiaAlertValues.TWITCH_FOLLOWER);
+            // lumia.SendAlert(LumiaAlertValues.TWITCH_FOLLOWER);
 
             // Sending a command; with a callback to get the result for this call
-            await lumia.SendCommand("red");
+            lumia.SendCommand("red");
 
-            RGB rgb = new RGB();
-            rgb.r = 255;
-            rgb.g = 0;
-            rgb.b = 255;
+            // RGB rgb = new RGB();
+            // rgb.r = 255;
+            // rgb.g = 0;
+            // rgb.b = 255;
 
-            await lumia.SendColor(rgb, 60, 1000, 0, false, false, null);
+            // lumia.SendColor(rgb, 20, 6000, 0, false, false, null);
+
+            // lumia.SendHexColor("#ff00ff", 60, 1000, 0, false, false, null);
 
             // Sending a brightness
-            await lumia.SendBrightness(100, 0, false);
+            // lumia.SendBrightness(100, 0, false);
 
             // Sending a TTS message
-            await lumia.SendTts("This SDK is the best", 100, "");
+            // lumia.SendTts("This SDK is the best", 100, "");
 
             // Sending a Chat bot message
-            await lumia.SendChatbot(Platforms.TWITCH, "This SDK is the best");
+            // lumia.SendChatbot(Platforms.TWITCH, "This SDK is the best");
 
             // Sending a raw event example
-            ILumiaSendPack pack = new ILumiaSendPack();
-            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.ALERT);
-            pack.params_ = new LumiaPackParams();
-            pack.params_.value = LumiaUtils.getTypeValue<LumiaAlertValues>(LumiaAlertValues.TWITCH_FOLLOWER);
-            await lumia.Send(pack);
+            // ILumiaSendPack pack = new ILumiaSendPack();
+            // pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.ALERT);
+            // pack.params_ = new LumiaPackParams();
+            // pack.params_.value = LumiaUtils.getTypeValue<LumiaAlertValues>(LumiaAlertValues.TWITCH_FOLLOWER);
+            // lumia.Send(pack);
         }
         public static async Task run()
         {

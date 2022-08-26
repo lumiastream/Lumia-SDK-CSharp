@@ -200,8 +200,9 @@ namespace Lumia
         [EnumMember(Value = "overlay")]
         OVERLAY = 135,
         [EnumMember(Value = "elgato")]
-        ELGATO = 136
-
+        ELGATO = 136,
+        [EnumMember(Value = "virtuallights")]
+        VIRTUALLIGHTS = 160
     };
 
     [JsonConverter(typeof(StringEnumConverter))]
