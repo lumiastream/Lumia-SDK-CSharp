@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.0.4</Version>
+    <Version>0.0.5</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Developers can use the Lumia Stream SDK to extend and control the Lumia Stream desktop app, enabling them to control smart lights, MIDI, DMX, OSC, OBS, TTS and so much more to create a custom and unique lighting experience.</Description>
     <Company>Lumia Stream</Company>

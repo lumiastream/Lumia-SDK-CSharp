@@ -228,6 +228,52 @@ namespace Lumia
             return Send(pack);
         }
 
+        // Set to default stats (Setting force to true will cause Lumia Stream to)
+        public Task<JObject> SetToDefault()
+        {
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TO_DEFAULT);
+            return Send(pack);
+        }
+
+        // Clear the queue
+        public Task<JObject> ClearQueue()
+        {
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.CLEAR_QUEUE);
+            return Send(pack);
+        }
+
+        // Set Fuze On/Off
+        public Task<JObject> SetFuze(bool on)
+        {
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TOGGLE_FUZE);
+            pack.params_ = new LumiaPackParams();
+            pack.params_.value = on;
+            return Send(pack);
+        }
+
+        // Set Lumia On/Off
+        public Task<JObject> SetLumiaState(bool on)
+        {
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TOGGLE_LUMIA);
+            pack.params_ = new LumiaPackParams();
+            pack.params_.value = on;
+            return Send(pack);
+        }
+
+        // Set Stream Mode On/Off
+        public Task<JObject> SetStreamModeState(bool on)
+        {
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TOGGLE_STREAMMODE);
+            pack.params_ = new LumiaPackParams();
+            pack.params_.value = on;
+            return Send(pack);
+        }
+
         // Sends Chatbot message
         public Task<JObject> SendChatbot(Platforms platform, string text)
         {
