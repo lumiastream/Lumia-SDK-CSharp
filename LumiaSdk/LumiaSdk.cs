@@ -245,7 +245,7 @@ namespace Lumia
         }
 
         // Set Fuze On/Off
-        public Task<JObject> SetFuze(boolean on)
+        public Task<JObject> SetFuze(bool on)
         {
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TOGGLE_FUZE);
@@ -255,7 +255,7 @@ namespace Lumia
         }
 
         // Set Lumia On/Off
-        public Task<JObject> SetLumiaState(boolean on)
+        public Task<JObject> SetLumiaState(bool on)
         {
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TOGGLE_LUMIA);
@@ -265,7 +265,7 @@ namespace Lumia
         }
 
         // Set Stream Mode On/Off
-        public Task<JObject> SetStreamModeState(boolean on)
+        public Task<JObject> SetStreamModeState(bool on)
         {
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TOGGLE_STREAMMODE);
