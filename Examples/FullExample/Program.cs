@@ -44,6 +44,12 @@ namespace Examples
             // pack.params_ = new LumiaPackParams();
             // pack.params_.value = LumiaUtils.getTypeValue<LumiaAlertValues>(LumiaAlertValues.TWITCH_FOLLOWER);
             // lumia.Send(pack);
+
+            // lumia.SetToDefault();
+            // lumia.ClearQueue();
+            // lumia.SetFuze(true); // Turn on Fuze (Use false to turn it off)
+            // lumia.SetLumiaState(true); // Turn on Lumia (Use false to turn it off)
+            // lumia.SetStreamModeState(true); // Turn on Stream Mode so that platforms commands and alerts are temporarily paused (Use false to turn it off)
         }
         public static async Task run()
         {

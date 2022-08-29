@@ -39,6 +39,16 @@ namespace Lumia
         CHATBOT_MESSAGE = 14,
         [EnumMember(Value = "tts")]
         TTS = 15,
+        [EnumMember(Value = "to-default")]
+        TO_DEFAULT = 76,
+        [EnumMember(Value = "clear-queue")]
+        CLEAR_QUEUE = 77,
+        [EnumMember(Value = "toggle-fuze")]
+        TOGGLE_FUZE = 78,
+        [EnumMember(Value = "toggle-lumia")]
+        TOGGLE_LUMIA = 79,
+        [EnumMember(Value = "toggle-stream-mode")]
+        TOGGLE_STREAMMODE = 80,
         [EnumMember(Value = "gamesglow-alert")]
         GAMESGLOW_ALERT = 201,
         [EnumMember(Value = "gamesglow-command")]
