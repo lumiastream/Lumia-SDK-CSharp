@@ -13,19 +13,23 @@ namespace Lumia
     {
         private WebSocket ws;
 
-        public LumiaSdk(string token = null, string name = null, string host = null, int port = 39231, int timeout = 30000)
+        public LumiaSdk(string token = null, string name = null, string host = null, int port = 39231, int timeout = 30000, bool deck = false, string endpoint = null)
         {
             if (token != null) token_ = token;
             if (name != null) name_ = name;
             if (host != null) host_ = host;
+            if (endpoint != null) endpoint_ = endpoint;
+            deck_ = deck;
             port_ = port;
         }
 
-        public Task<bool> init(string token = null, string name = null, string host = null, int port = 39231, int timeout = 30000)
+        public Task<bool> init(string token = null, string name = null, string host = null, int port = 39231, int timeout = 30000, bool deck = false, string endpoint = null)
         {
             if (token != null) token_ = token;
             if (name != null) name_ = name;
             if (host != null) host_ = host;
+            if (endpoint != null) endpoint_ = endpoint;
+            deck_ = deck;
             port_ = port;
 
             return StartWs();
@@ -34,8 +38,17 @@ namespace Lumia
         private Task<bool> StartWs()
         {
             var promise = new TaskCompletionSource<bool>();
-            var host = "ws://" + host_ + ":" + port_ + "/api?token=" + token_ + "&name=" + name_;
-            ws = new WebSocket(host);
+            var url = "ws://" + host_;
+            if (deck_)
+            {
+                url += ":39222?token=" + token_ + "&origin=" + name_ + "&name=" + name_;
+            }
+            else
+            {
+                url += ":" + port_ + "/" + endpoint_ + "?token=" + token_ + "&origin=" + name_ + "&name=" + name_;
+            }
+
+            ws = new WebSocket(url);
 
             ws.OnOpen += (sender, e) =>
             {
@@ -140,6 +153,16 @@ namespace Lumia
             return Send(pack);
         }
 
+        public Task<JObject> SendAlert(string alert)
+        {
+
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.ALERT);
+            pack.params_ = new LumiaPackParams();
+            pack.params_.value = alert;
+            return Send(pack);
+        }
+
         // Sends command
         public Task<JObject> SendCommand(string command, bool default_ = false, bool skipQueue = false)
         {
@@ -156,12 +179,12 @@ namespace Lumia
         // Sends a hex color
         public Task<JObject> SendHexColor(
                         string color,
-                        int brightness, // 0-100
-                        int duration,  // In milliseconds
-                        int transition, // In milliseconds
-                        bool default_,
-                        bool skipQueue,
-                        List<ILumiaLight> lights)
+                        int brightness = 100, // 0-100
+                        int duration = 4000,  // In milliseconds
+                        int transition = 0, // In milliseconds
+                        bool default_ = false,
+                        bool skipQueue = false,
+                        List<ILumiaLight> lights = null)
         {
 
 
@@ -181,12 +204,12 @@ namespace Lumia
         // Sends a color pack
         public Task<JObject> SendColor(
                         RGB color,
-                        int brightness, // 0-100
-                        int duration,  // In milliseconds
-                        int transition, // In milliseconds
-                        bool default_,
-                        bool skipQueue,
-                        List<ILumiaLight> lights)
+                        int brightness = 100, // 0-100
+                        int duration = 4000,  // In milliseconds
+                        int transition = 0, // In milliseconds
+                        bool default_ = false,
+                        bool skipQueue = false,
+                        List<ILumiaLight> lights = null)
         {
 
 
@@ -204,7 +227,7 @@ namespace Lumia
         }
 
         // Sends brightness only
-        public Task<JObject> SendBrightness(int brightness, int transition, bool skipQueue)
+        public Task<JObject> SendBrightness(int brightness, int transition = 0, bool skipQueue = true)
         {
 
             ILumiaSendPack pack = new ILumiaSendPack();
@@ -217,7 +240,7 @@ namespace Lumia
         }
 
         // Sends tts
-        public Task<JObject> SendTts(string text, int volume, string voice)
+        public Task<JObject> SendTts(string text, int volume = 1, string voice = null)
         {
             ILumiaSendPack pack = new ILumiaSendPack();
             pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.TTS);
@@ -282,6 +305,17 @@ namespace Lumia
             pack.params_ = new LumiaPackParams();
             pack.params_.value = text;
             pack.params_.platform = LumiaUtils.getTypeValue<Platforms>(platform);
+            return Send(pack);
+        }
+
+        // Sends Chatbot message
+        public Task<JObject> SendChatbot(string platform, string text)
+        {
+            ILumiaSendPack pack = new ILumiaSendPack();
+            pack.type = LumiaUtils.getTypeValue<LumiaCommandTypes>(LumiaCommandTypes.CHATBOT_MESSAGE);
+            pack.params_ = new LumiaPackParams();
+            pack.params_.value = text;
+            pack.params_.platform = platform;
             return Send(pack);
         }
 
@@ -360,7 +394,9 @@ namespace Lumia
 
         private string token_, name_;
         private string host_ = "127.0.0.1";
+        private bool deck_ = false;
         private int port_ = 39231;
+        private string endpoint_ = "api";
         private int event_count = 0;
         private IDictionary<string, TaskCompletionSource<JObject>> cbs = new Dictionary<string, TaskCompletionSource<JObject>>();
 
