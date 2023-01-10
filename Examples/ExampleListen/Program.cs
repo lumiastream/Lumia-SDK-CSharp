@@ -36,7 +36,6 @@ namespace Examples
                     case LumiaEventTypes.STATES:
                         {
                             Console.WriteLine("States have been updated:  " + data.ToString());
-                            TestCall();
                             break;
                         }
 
@@ -53,10 +52,6 @@ namespace Examples
                         break;
                 }
             };
-        }
-        public static void TestCall(string[] args)
-        {
-            Console.WriteLine("Calling from event");
         }
         public static void Main(string[] args)
         {

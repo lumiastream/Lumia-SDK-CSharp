@@ -17,6 +17,12 @@
     <PackageTags>Lumia Stream</PackageTags>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>lumiastream-snk.pfx</AssemblyOriginatorKeyFile>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageReleaseNotes>### Features
+
+* Added SendHexColor method to send a color with a regular string
+* Added defaults to parameters that aren't necessary for the sdk
+* Added ability to use the SDK with various Deck devices</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -32,6 +38,10 @@
     <None Include="..\Lumia-Stream_Logo_Circle_Purple.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="..\Readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
