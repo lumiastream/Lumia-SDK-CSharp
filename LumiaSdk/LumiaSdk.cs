@@ -139,7 +139,7 @@ namespace Lumia
         {
 
             JObject o = JObject.FromObject(pack);
-            o["lsorigin"] = "lumia-sdk";
+            o["lsorigin"] = name_ ?? "lumia-sdk";
             return SendWsMessage(o);
         }
 

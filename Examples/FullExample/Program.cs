@@ -93,7 +93,7 @@ namespace Examples
                 }
             };
 
-            var r = await lumia.GetInfo();
+            JObject r = await lumia.GetInfo();
 
             Console.WriteLine("get info result : " + r.ToString());
 
